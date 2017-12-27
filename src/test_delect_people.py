@@ -11,11 +11,11 @@ def lvmu():
 		#print(img)
 		#日常缩放
 		rows,cols,channels = img_back.shape
-		img_back=cv2.resize(img_back,None,fx=1,fy=2)
+		img_back=cv2.resize(img_back,None,fx=0.7,fy=0.7)
 		#cv2.imshow('img_back',img_back)
 
 		rows,cols,channels = img.shape
-		img=cv2.resize(img,None,fx=0.8,fy=0.8)
+		img=cv2.resize(img,None,fx=0.4,fy=0.4)
 		#cv2.imshow('img',img)
 		rows,cols,channels = img.shape#rows，cols最后一定要是前景图片的，后面遍历图片需要用到
 
@@ -40,7 +40,9 @@ def lvmu():
     			for j in range(cols):
         			if dilate[i,j]==0:#0代表黑色的点
             				img_back[center[0]+i,center[1]+j]=img[i,j]#此处替换颜色，为BGR通道
-		cv2.imshow('res',img_back)
+
+		res=cv2.resize(img_back,(1200,900),interpolation=cv2.INTER_CUBIC)
+		cv2.imshow('res',res)
 		if cv2.waitKey(30) & 0xFF ==ord("q"):
 			break
 	cap.release()
