@@ -2,6 +2,7 @@
 import cv2
 import numpy as np
 
+
 def print_pixel_values(img):
     px = img[100,100]
     print('img[100,100] pixel values bgr',px)
@@ -44,10 +45,10 @@ def change_pixel_values(img):
 
 def add_img():
     # Load two images
-    img1 = cv2.imread('/home/zk/opencvtest/opencvlearn/image/back.jpg')
+    img1 = cv2.imread('/home/ly/opencvtest/opencvlearn/image/back.jpg')
     img1 = cv2.resize(img1,None,fx = 1,fy = 2)
     #img2 = cv2.imread('/home/zk/opencvtest/opencvlearn/image/opencvlogo.png')
-    img2 = cv2.imread('/home/zk/opencvtest/opencvlearn/image/mianju.jpg')
+    img2 = cv2.imread('/home/ly/opencvtest/opencvlearn/image/mianju.jpg')
     img2 = cv2.resize(img2,None,fx = 0.5,fy = 0.5)
     #print(img2)
     # I want to put logo on top-left corner, So I create a ROI
@@ -68,16 +69,16 @@ def add_img():
     img1[50:rows+50, 50:cols+50 ] = dst
     cv2.imshow('res',img1)
 
-    cv2.imshow('img1_bg',img1_bg)
-    cv2.imshow('img2_fg',img2_fg)
-    cv2.imshow('dst',dst)
+    #cv2.imshow('img1_bg',img1_bg)
+    #cv2.imshow('img2_fg',img2_fg)
+    #cv2.imshow('dst',dst)
     cv2.imshow('img2',img2)
     cv2.imshow('mask',mask)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    img = cv2.imread("/home/zk/opencvtest/opencvlearn/src/people.jpg")
+    img = cv2.imread("/home/ly/opencvtest/opencvlearn/src/people.jpg")
     #print_pixel_values(img)
     #change_pixel_values(img)
     add_img()
