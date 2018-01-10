@@ -49,8 +49,8 @@ def lvmu():
 
 def bluetest():
     #img=cv2.imread('/home/zk/opencvtest/opencvlearn/image/dog.jpg')
-    img=cv2.imread('/home/zk/opencvtest/opencvlearn/image/owen.jpeg')
-    img_back=cv2.imread('/home/zk/opencvtest/opencvlearn/image/back.jpg')
+    img=cv2.imread('/home/ly/opencvtest/opencvlearn/image/owen.jpeg')
+    img_back=cv2.imread('/home/ly/opencvtest/opencvlearn/image/back.jpg')
     #print(img)
     #日常缩放
     rows,cols,channels = img_back.shape
@@ -69,20 +69,21 @@ def bluetest():
     #lower_blue=np.array([40,43,46])
     upper_blue=np.array([110,255,255])
     mask = cv2.inRange(hsv, lower_blue, upper_blue)
-#在lower_blue——upper之间的像素为255，否则为0，（蓝色区域就变成0（黑色））
+#在lower_blue——upper之间的像素为0，否则为255，（蓝色区域就变成255（白色））
     cv2.imshow('Mask', mask)
+    print('mask[0,0]',mask[10,10])
 
     #腐蚀膨胀
     erode=cv2.erode(mask,None,iterations=1)
-    #cv2.imshow('erode',erode)
+    cv2.imshow('erode',erode)
     dilate=cv2.dilate(erode,None,iterations=1)
-    #cv2.imshow('dilate',dilate)
+    cv2.imshow('dilate',dilate)
 
     #遍历替换
     center=[50,50]#在新背景图片中的位置
     for i in range(rows):
     	for j in range(cols):
-            if dilate[i,j]==0:#0代表黑色的点
+            if mask[i,j]==0:#0代表黑色的点
             	img_back[center[0]+i,center[1]+j]=img[i,j]#此处替换颜色，为BGR通道
     cv2.imshow('res',img_back)
     if cv2.waitKey(0) & 0xFF ==ord("q"):

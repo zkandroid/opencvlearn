@@ -4,6 +4,7 @@ import numpy as np
 
 
 def print_pixel_values(img):
+    print('img[0:100,0:100]',img[0:100,0:100])
     px = img[100,100]
     print('img[100,100] pixel values bgr',px)
     #blue = img[100,100,0]
@@ -53,9 +54,13 @@ def add_img():
     #print(img2)
     # I want to put logo on top-left corner, So I create a ROI
     rows,cols,channels = img2.shape
+    print('img2.shape',img2.shape)
+    print('img.size',img2.size)
+    print('img.dtype',img.dtype)
     roi = img1[50:rows+50, 50:cols+50 ]
     # Now create a mask of logo and create its inverse mask also
     img2gray = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
+    print('img2gray,shape',img2gray.shape)
     #ret, mask = cv2.threshold(img2gray, 10, 255, cv2.THRESH_BINARY)#大于10的设置为0(黑色），小于设置为255
     ret, mask = cv2.threshold(img2gray, 120, 255, cv2.THRESH_BINARY)#大于10的设置为0(黑色），小于设置为255
     mask_inv = cv2.bitwise_not(mask)
@@ -65,20 +70,21 @@ def add_img():
     img2_fg = cv2.bitwise_and(img2,img2,mask = mask)
     # Put logo in ROI and modify the main image
     dst = cv2.add(img1_bg,img2_fg)
-    print(dst.shape)
+    print('dst.shape',dst.shape)
     img1[50:rows+50, 50:cols+50 ] = dst
     cv2.imshow('res',img1)
 
-    #cv2.imshow('img1_bg',img1_bg)
-    #cv2.imshow('img2_fg',img2_fg)
-    #cv2.imshow('dst',dst)
+    cv2.imshow('img1_bg',img1_bg)
+    cv2.imshow('img2_fg',img2_fg)
     cv2.imshow('img2',img2)
-    cv2.imshow('mask',mask)
+    #cv2.imshow('dst',dst)
+    #cv2.imshow('img2',img2)
+    #cv2.imshow('mask',mask)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    img = cv2.imread("/home/ly/opencvtest/opencvlearn/src/people.jpg")
+    img = cv2.imread("/home/ly/opencvtest/opencvlearn/image/green.jpg")
     #print_pixel_values(img)
     #change_pixel_values(img)
     add_img()
